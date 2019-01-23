@@ -1,3 +1,5 @@
+import setuptools
+from distutils.core import setup
 import sys
 from distutils.core import setup, Extension
 from sysconfig import get_paths
@@ -23,7 +25,14 @@ sfc_module = Extension(
     include_dirs=[get_paths()['include'], numpy.get_include()],
     language='c++')
 
-setup(name='glcr', version='1.1',
-      description='Python Package with glcr C++ extension',
+setup(name='glcr',
+      version='1.1.1',
+      description='Support module for the Digital DNA Toolbox (https://github.com/WAFI-CNR/ddna-toolbox)',
+      long_description='This module implements the Generalized Longest Common Subsequence algorithm, used by the'
+                       'digitaldna module to compute common DNA subsequences.',
+      url='https://github.com/WAFI-CNR/ddna-lcs',
+      author='WAFI CNR',
+      author_email='giuseppe.gagliano@iit.cnr.it',
+      license='MIT',
       ext_modules=[sfc_module]
       )
