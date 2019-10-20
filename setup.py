@@ -1,10 +1,11 @@
-import setuptools
-from distutils.core import setup
 import sys
 from distutils.core import setup, Extension
 from sysconfig import get_paths
 
-import numpy
+try:
+    import numpy
+except ImportError:
+    sys.exit('numpy is required during installation')
 
 if sys.version_info.major < 3:
     sys.exit('Sorry, Python < 3 is not supported')
@@ -22,11 +23,12 @@ sfc_module = Extension(
         'lcx/lv/util/LV_list_lcs_int.cpp', 'lcx/lv/util/Priority_QLS.cpp',
         'lcx/lv/util/QLS_item.cpp', 'lcx/Result.cpp', 'lcx/Result_saver.cpp',
         'TC_reader.cpp'],
+
     include_dirs=[get_paths()['include'], numpy.get_include()],
     language='c++')
 
 setup(name='glcr',
-      version='1.1.1',
+      version='1.2',
       description='Support module for the Digital DNA Toolbox (https://github.com/WAFI-CNR/ddna-toolbox)',
       long_description='This module implements the Generalized Longest Common Subsequence algorithm, used by the'
                        'digitaldna module to compute common DNA subsequences.',
@@ -34,5 +36,8 @@ setup(name='glcr',
       author='WAFI CNR',
       author_email='giuseppe.gagliano@iit.cnr.it',
       license='MIT',
+      install_requires=[
+          'numpy',
+      ],
       ext_modules=[sfc_module]
       )
